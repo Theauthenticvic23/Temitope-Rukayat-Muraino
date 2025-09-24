@@ -453,19 +453,78 @@ footer {
 }
 
 /* =========================
-   Responsive
+   Mobile Enhancements
 ========================= */
 @media screen and (max-width: 768px) {
+  /* Hero stacks neatly */
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 1rem;
+  }
+
+  .hero-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-card .lead {
+    font-size: 0.95rem;
   }
 
   .profile {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
+  .profile .photo {
+    height: 180px;
+  }
+
+  /* KPIs stack */
+  .kpis {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Gallery shows 1 image per row */
   .gallery-row img {
-    width: 85%;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  /* Projects stack vertically */
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Testimonials one per row */
+  .test-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navbar cleanup */
+  .nav {
+    padding: 0.8rem 1rem;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1rem;
+    gap: 1rem;
+    width: 220px;
+    display: none;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
   }
 }

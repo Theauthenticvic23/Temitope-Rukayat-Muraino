@@ -1,111 +1,52 @@
-// =========================
-// Mobile Menu Toggle
-// =========================
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
+// Mobile menu toggle
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-if (menuToggle && navLinks) {
-  menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('show');
-  });
-}
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+});
 
-// =========================
-// Smooth Scroll for Nav Links
-// =========================
-document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
-  link.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-    navLinks.classList.remove('show'); // close menu on mobile after click
+// Close menu when link is clicked
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("show");
   });
 });
 
-// =========================
-// Intersection Observer Reveal
-// =========================
-const sections = document.querySelectorAll('.section');
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-sections.forEach(section => {
-  section.classList.add('hidden');
-  observer.observe(section);
+// Smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) target.scrollIntoView({ behavior: "smooth" });
+  });
 });
 
 // Scroll-to-top button
-const scrollTopBtn = document.getElementById("scrollTopBtn");
-
+const scrollBtn = document.getElementById("scrollTopBtn");
 window.addEventListener("scroll", () => {
-  if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-    scrollTopBtn.style.display = "block";
+  if (window.scrollY > 250) {
+    scrollBtn.style.display = "block";
   } else {
-    scrollTopBtn.style.display = "none";
+    scrollBtn.style.display = "none";
   }
 });
-
-scrollTopBtn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+scrollBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-
-// =========================
-// Lightbox for Gallery Images
-// =========================
-const galleryImages = document.querySelectorAll('.gallery-row img');
-const lightbox = document.createElement('div');
-lightbox.classList.add('lightbox');
-document.body.appendChild(lightbox);
-
-const lightboxImg = document.createElement('img');
-lightbox.appendChild(lightboxImg);
+// Lightbox for gallery images
+const galleryImages = document.querySelectorAll(".gallery-row img");
+const lightbox = document.querySelector(".lightbox");
+const lightboxImg = document.querySelector(".lightbox img");
 
 galleryImages.forEach(img => {
-  img.addEventListener('click', () => {
-    lightbox.classList.add('active');
+  img.addEventListener("click", () => {
     lightboxImg.src = img.src;
+    lightbox.classList.add("active");
   });
 });
 
-lightbox.addEventListener('click', () => {
-  lightbox.classList.remove('active');
+lightbox.addEventListener("click", () => {
+  lightbox.classList.remove("active");
 });
-
-// =========================
-// Highlight Active Nav Link
-// =========================
-const navItems = document.querySelectorAll('.nav-links a');
-
-function setActiveNav() {
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 80;
-    const sectionHeight = section.offsetHeight;
-    if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-      current = section.getAttribute('id');
-    }
-  });
-
-  navItems.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${current}`) {
-      link.classList.add('active');
-    }
-  });
-}
-
-window.addEventListener('scroll', setActiveNav);
